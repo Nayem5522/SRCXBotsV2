@@ -1,2 +1,2 @@
-worker: python -m bot
-web: python -m bot
+
+web: python-3.10.x
