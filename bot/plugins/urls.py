@@ -1,54 +1,31 @@
+from pyrogram import filters
+from bot.utils import Utilities
+from bot.screenshotbot import ScreenShotBot
+from bot.config import Config
 import datetime
 
-from pyrogram import filters
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-
-from ..utils import Utilities
-from ..screenshotbot import ScreenShotBot
-from ..config import Config
-
-
-@ScreenShotBot.on_message(
-    filters.private
-    & (filters.text | filters.media)
-    & filters.incoming
-)
-async def _(c, m):
-
-    # এডিট করা মেসেজ ইগনোর করার জন্য চেক (Pyrogram V2 এর নিয়ম অনুযায়ী)
-    if m.edit_date:
+@ScreenShotBot.on_message(filters.private & (filters.video | filters.document | filters.text))
+async def handle_media(c, m):
+    # ভিডিও বা ইউআরএল চেক করা
+    if m.media:
+        if not Utilities.is_valid_file(m): return
+    elif not Utilities.is_url(m.text):
         return
 
-    if m.media:
-        if not Utilities.is_valid_file(m):
-            return
-    else:
-        if not Utilities.is_url(m.text):
-            return
+    snt = await m.reply_text("Processing your request... Please wait! 😴", quote=True)
 
-    snt = await m.reply_text(
-        "Hi there, Please wait while I'm getting everything ready to process your request!",
-        quote=True,
-    )
-
-    if m.media:
-        file_link = Utilities.generate_stream_link(m)
-    else:
-        file_link = m.text
-
+    file_link = Utilities.generate_stream_link(m) if m.media else m.text
     duration = await Utilities.get_duration(file_link)
+    
     if isinstance(duration, str):
         await snt.edit_text("😟 Sorry! I cannot open the file.")
-        log = await m.forward(Config.LOG_CHANNEL)
-        await log.reply_text(duration, True)
         return
 
     btns = Utilities.gen_ik_buttons()
-
     if duration >= 600:
-        btns.append([InlineKeyboardButton("Generate Sample Video!", "smpl")])
+        btns.append([InlineKeyboardButton("Generate Sample Video!", callback_data="smpl")])
 
     await snt.edit_text(
-        text=f"Choose one of the options.\n\nTotal duration: `{datetime.timedelta(seconds=duration)}` (`{duration}s`)",
+        text=f"Total duration: `{datetime.timedelta(seconds=duration)}`",
         reply_markup=InlineKeyboardMarkup(btns),
     )
