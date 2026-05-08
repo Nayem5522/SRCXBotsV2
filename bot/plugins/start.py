@@ -1,25 +1,60 @@
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-
 from ..screenshotbot import ScreenShotBot
 
 
 @ScreenShotBot.on_message(filters.private & filters.command("start"))
 async def start(c, m):
 
-    await m.reply_text(
-        text=f"Hi there {m.from_user.mention}.\n\nI'm Screenshot Generator Bot. I can provide screenshots from "
-        "your video files without downloading the entire file (almost instantly). For more details check /help.",
-        quote=True,
-        reply_markup=InlineKeyboardMarkup(
+    txt = f"""
+<b>
+╭━━━〔 📸 ꜱᴄʀᴇᴇɴꜱʜᴏᴛ ʙᴏᴛ 〕━━━╮
+
+👋 ʜᴇʏ {m.from_user.mention}
+
+✨ ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴀᴅᴠᴀɴᴄᴇᴅ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ ɢᴇɴᴇʀᴀᴛᴏʀ ʙᴏᴛ
+
+📸 ɪ ᴄᴀɴ ᴄʀᴇᴀᴛᴇ ʜɪɢʜ Qᴜᴀʟɪᴛʏ ꜱᴄʀᴇᴇɴꜱʜᴏᴛꜱ
+ғʀᴏᴍ ʏᴏᴜʀ ᴠɪᴅᴇᴏꜱ ɪɴꜱᴛᴀɴᴛʟʏ ⚡
+
+━━━━━━━━━━━━━━━━━━
+
+⚡ ꜰᴀꜱᴛ • 🎞️ Qᴜᴀʟɪᴛʏ • 🚀 ꜱɪᴍᴘʟᴇ
+
+━━━━━━━━━━━━━━━━━━
+
+📌 ʜᴏᴡ ᴛᴏ ᴜꜱᴇ:
+➤ ꜱᴇɴᴅ ᴀɴʏ ᴠɪᴅᴇᴏ ғɪʟᴇ
+➤ ʙᴏᴛ ᴡɪʟʟ ɢᴇɴᴇʀᴀᴛᴇ ꜱᴄʀᴇᴇɴꜱʜᴏᴛꜱ
+
+📖 ɴᴇᴇᴅ ʜᴇʟᴘ? ᴜꜱᴇ /help ᴄᴏᴍᴍᴀɴᴅ
+
+━━━━━━━━━━━━━━━━━━
+
+<blockquote>
+⍟ ᴘᴏᴡᴇʀᴇᴅ ʙʏ <a href='https://t.me/PrimeXBots'>ᴘʀɪᴍᴇXʙᴏᴛꜱ</a> ⍟
+</blockquote>
+</b>
+"""
+
+    buttons = InlineKeyboardMarkup(
+        [
             [
-                [
-                    InlineKeyboardButton(
-                        "Source 😒", url="https://github.com/odysseusmax/animated-lamp"
-                    ),
-                    InlineKeyboardButton("Project Channel", url="https://t.me/odbots"),
-                ],
-                [InlineKeyboardButton("My Father", url="https://t.me/odysseusmax")],
+                InlineKeyboardButton("〄 ᴜᴘᴅᴀᴛᴇs ᴄʜᴀɴɴᴇʟ 〄", url="https://t.me/PrimeXBots")
+            ],
+            [
+                InlineKeyboardButton("✪ ꜱᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ ✪", url="https://t.me/Prime_Support_group"),
+                InlineKeyboardButton("〄 ᴍᴏᴠɪᴇ ᴄʜᴀɴɴᴇʟ 〄", url="https://t.me/PrimeCineZone")
+            ],
+            [
+                InlineKeyboardButton("✧ ᴄʀᴇᴀᴛᴏʀ ✧", url="https://t.me/Prime_Nayem")
             ]
-        ),
+        ]
+    )
+
+    await m.reply_text(
+        text=txt,
+        quote=True,
+        disable_web_page_preview=True,
+        reply_markup=buttons
     )
