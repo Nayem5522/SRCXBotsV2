@@ -1,11 +1,8 @@
 from pyrogram import filters
-
 from bot.screenshotbot import ScreenShotBot
-from bot.database import Database
-
-
+# ডাটাবেস ইমপোর্ট ঠিক করুন
+from bot.database.database import Database 
 db = Database()
-
 
 @ScreenShotBot.on_message(filters.private & filters.command("set_watermark"))
 async def _(c, m):
