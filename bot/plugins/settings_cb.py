@@ -12,9 +12,9 @@ db = Database()
 @ScreenShotBot.on_callback_query(
     filters.create(lambda _, __, query: query.data.startswith("set"))
 )
-async def settings_cb(c, m):
+async def settings_cb(c, cb):
     try:
-        _, typ, action = m.data.split("+")  # Reverse compatibility.
+        _, typ, action = cb.data.split("+")  # Reverse compatibility.
     except Exception:
         _, typ = m.data.split("+")
     chat_id = m.from_user.id
