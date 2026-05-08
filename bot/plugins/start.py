@@ -1,14 +1,11 @@
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from ..screenshotbot import ScreenShotBot
-
+from bot.screenshotbot import ScreenShotBot
 
 @ScreenShotBot.on_message(filters.private & filters.command("start"))
 async def start(c, m):
-
     txt = f"""
-<b>
-╭━━━〔 📸 ꜱᴄʀᴇᴇɴꜱʜᴏᴛ ʙᴏᴛ 〕━━━╮
+<b>╭━━━〔 📸 ꜱᴄʀᴇᴇɴꜱʜᴏᴛ ʙᴏᴛ 〕━━━╮
 
 👋 ʜᴇʏ {m.from_user.mention}
 
@@ -24,37 +21,21 @@ async def start(c, m):
 ━━━━━━━━━━━━━━━━━━
 
 📌 ʜᴏᴡ ᴛᴏ ᴜꜱᴇ:
-➤ ꜱᴇɴᴅ ᴀɴʏ ᴠɪᴅᴇᴏ ғɪʟᴇ
+➤ ꜱᴇɴᴅ ᴀɴʏ ᴠɪᴅᴇᴏ ғɪʟᴇ ᴏʀ ʟɪɴᴋ
 ➤ ʙᴏᴛ ᴡɪʟʟ ɢᴇɴᴇʀᴀᴛᴇ ꜱᴄʀᴇᴇɴꜱʜᴏᴛꜱ
 
 📖 ɴᴇᴇᴅ ʜᴇʟᴘ? ᴜꜱᴇ /help ᴄᴏᴍᴍᴀɴᴅ
 
 ━━━━━━━━━━━━━━━━━━
-
 <blockquote>
 ⍟ ᴘᴏᴡᴇʀᴇᴅ ʙʏ <a href='https://t.me/PrimeXBots'>ᴘʀɪᴍᴇXʙᴏᴛꜱ</a> ⍟
-</blockquote>
-</b>
-"""
+</blockquote></b>"""
 
-    buttons = InlineKeyboardMarkup(
-        [
-            [
-                InlineKeyboardButton("〄 ᴜᴘᴅᴀᴛᴇs ᴄʜᴀɴɴᴇʟ 〄", url="https://t.me/PrimeXBots")
-            ],
-            [
-                InlineKeyboardButton("✪ ꜱᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ ✪", url="https://t.me/Prime_Support_group"),
-                InlineKeyboardButton("〄 ᴍᴏᴠɪᴇ ᴄʜᴀɴɴᴇʟ 〄", url="https://t.me/PrimeCineZone")
-            ],
-            [
-                InlineKeyboardButton("✧ ᴄʀᴇᴀᴛᴏʀ ✧", url="https://t.me/Prime_Nayem")
-            ]
-        ]
-    )
+    buttons = InlineKeyboardMarkup([
+        [InlineKeyboardButton("〄 ᴜᴘᴅᴀᴛᴇs ᴄʜᴀɴɴᴇʟ 〄", url="https://t.me/PrimeXBots")],
+        [InlineKeyboardButton("✪ ꜱᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ ✪", url="https://t.me/Prime_Support_group"),
+         InlineKeyboardButton("〄 ᴍᴏᴠɪᴇ ᴄʜᴀɴɴᴇʟ 〄", url="https://t.me/PrimeCineZone")],
+        [InlineKeyboardButton("✧ ᴄʀᴇᴀᴛᴏʀ ✧", url="https://t.me/Prime_Nayem")]
+    ])
 
-    await m.reply_text(
-        text=txt,
-        quote=True,
-        disable_web_page_preview=True,
-        reply_markup=buttons
-    )
+    await m.reply_text(text=txt, quote=True, disable_web_page_preview=True, reply_markup=buttons)
