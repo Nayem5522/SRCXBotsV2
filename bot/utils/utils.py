@@ -74,10 +74,11 @@ class Utilities:
 
     @staticmethod
     def generate_stream_link(media_msg):
-        file_id = media_msg.message.id
+        # media_msg নিজেই একটি মেসেজ অবজেক্ট
+        file_id = media_msg.id 
         chat_id = media_msg.chat.id
         return urljoin(Config.HOST, f"file/{chat_id}/{file_id}")
-
+        
     @staticmethod
     async def get_media_info(file_link):
         ffprobe_cmd = [
