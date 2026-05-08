@@ -10,10 +10,14 @@ from ..config import Config
 
 @ScreenShotBot.on_message(
     filters.private
-    & ((filters.text & ~filters.edited) | filters.media)
+    & (filters.text | filters.media)
     & filters.incoming
 )
 async def _(c, m):
+
+    # এডিট করা মেসেজ ইগনোর করার জন্য চেক (Pyrogram V2 এর নিয়ম অনুযায়ী)
+    if m.edit_date:
+        return
 
     if m.media:
         if not Utilities.is_valid_file(m):
