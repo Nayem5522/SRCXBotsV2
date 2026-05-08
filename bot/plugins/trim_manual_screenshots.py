@@ -1,18 +1,15 @@
 from pyrogram import filters
 from pyrogram.types import ForceReply
-
 from bot.utils import ProcessTypes
 from bot.processes import ProcessFactory
 from bot.screenshotbot import ScreenShotBot
 from bot.messages import Messages as ms
 from bot.config import Config
 
-
+# নতুন ভার্সনের জন্য ফিল্টার আপডেট করা হলো যাতে ক্র্যাশ না করে
 reply_markup_filter = filters.create(
-    lambda _, __, message: message.reply_to_message.reply_markup
-    and isinstance(message.reply_to_message.reply_markup, ForceReply)
+    lambda _, __, m: m.reply_to_message and m.reply_to_message.reply_markup
 )
-
 
 @ScreenShotBot.on_message(filters.private & filters.reply & reply_markup_filter)
 async def _(c, m):
