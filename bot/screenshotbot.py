@@ -13,14 +13,12 @@ from bot.config import Config
 from bot.workers import Worker
 from bot.utils.broadcast import Broadcast
 
-
 log = logging.getLogger(__name__)
-
 
 class ScreenShotBot(Client):
     def __init__(self):
         super().__init__(
-            session_name=Config.SESSION_NAME,
+            name=Config.SESSION_NAME, # V1 এর session_name পরিবর্তন করে name করা হয়েছে
             bot_token=Config.BOT_TOKEN,
             api_id=Config.API_ID,
             api_hash=Config.API_HASH,
@@ -36,12 +34,11 @@ class ScreenShotBot(Client):
         await super().start()
         await self.process_pool.start()
         me = await self.get_me()
-        print(f"New session started for {me.first_name}({me.username})")
+        print(f"Bot started successfully as {me.first_name}")
 
     async def stop(self):
         await self.process_pool.stop()
         await super().stop()
-        print("Session stopped. Bye!!")
 
     @contextmanager
     def track_broadcast(self, handler):
